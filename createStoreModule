@@ -1,0 +1,78 @@
+#!/bin/bash
+
+echo "creating store $1 .."
+formattedStoreName=$(echo ${1} | sed -r 's/(.^|_)([a-z])/\U\2/g')
+
+# split keys into array
+stateKeys=$2
+IFS=,
+
+#state
+state="
+export const state = () => ({
+  allData: [],
+  allDataList: [],
+  totalPages: 1,
+  data: {
+"
+for KEY in $stateKeys
+do
+	state="$state     $KEY: null, \n"
+done
+state="$state        },
+   })"
+
+
+# mutations
+setters="export const mutations = { \n"
+for key in $stateKeys  
+do  
+	singleSetter="set_${key}"
+	handledSetterName=$(echo "$singleSetter(state,val){\n" | sed -r 's/(.^|_)([a-z])/\U\2/g')
+	setters="$setters $handledSetterName"
+	setters="$setters	state.data.$key = val \n"
+	setters="$setters }, \n"
+done
+setters="$setters \n}"
+
+# getters
+getters="export const getters = { \n"
+for key in $stateKeys  
+do  
+	singleGetter="get_${key}"
+	handledGetterName=$(echo "$singleGetter(state){\n" | sed -r 's/(.^|_)([a-z])/\U\2/g')
+	getters="$getters $handledGetterName"
+	getters="$getters	return state.data.$key \n"
+	getters="$getters }, \n"
+done
+getters="$getters \n}"
+
+
+# actions
+actions="export const actions = { \n"
+actions="$actions \n"
+for key in $stateKeys  
+do  
+	singleAction="update_${key}"
+	mutationName="set_${key}"
+	mutationName=$(echo "$mutationName" | sed -r 's/(.^|_)([a-z])/\U\2/g')
+	handledActionName=$(echo "$singleAction({commit}, payload){\n" | sed -r 's/(.^|_)([a-z])/\U\2/g')
+	actions="$actions $handledActionName"
+	actions="$actions // validate payload before commit \n"
+	actions="$actions	commit('$mutationName', payload) \n"
+	actions="$actions }, \n"
+done
+actions="$actions }\n"
+
+# export store in a file
+echo -e "
+$state
+
+$getters
+
+$actions
+
+$setters
+" >> "./store/${formattedStoreName}.js"
+echo "store $formattedStoreName created!";
+

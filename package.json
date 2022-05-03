@@ -1,0 +1,25 @@
+{
+  "name": "create-nuxt-store-module",
+  "version": "1.0.1",
+  "description": "simple bash script to create a nuxt vuex store module within a second",
+  "main": "index.js",
+  "scripts": {
+    "create-store": "./createStore.sh",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sala7webdev/create-nuxt-store.git"
+  },
+  "keywords": [
+    "nuxt",
+    "vuex",
+    "vue"
+  ],
+  "author": "Mohamed Salah",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sala7webdev/create-nuxt-store/issues"
+  },
+  "homepage": "https://github.com/sala7webdev/create-nuxt-store#readme"
+}
