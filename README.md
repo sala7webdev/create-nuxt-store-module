@@ -2,12 +2,12 @@
 
 ### make script excetuable
 ```
- chmod +x ./node_modules/create-nuxt-store/createStoreModule
+ chmod +x ./node_modules/create-nuxt-store-module/createStoreModule
 ```
 
 ### make it globally
 ```
- sudo cp ./node_modules/create-nuxt-store/createStoreModule /usr/local/bin
+ sudo cp ./node_modules/create-nuxt-store-module/createStoreModule /usr/local/bin
 ```
 
 ### use it inside you Nuxt project
