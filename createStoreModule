@@ -1,5 +1,15 @@
 #!/bin/bash
 
+if [ ! -d "./store" ]
+then
+    echo "store folder DOES NOT exists." && exit 10 
+fi
+
+if [ -z "$1" ]
+then
+    echo "store name is required" && exit 5
+fi
+
 echo "creating store $1 .."
 formattedStoreName=$(echo ${1} | sed -r 's/(.^|_)([a-z])/\U\2/g')
 
