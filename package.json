@@ -1,6 +1,6 @@
 {
   "name": "create-nuxt-store-module",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "simple bash script to create a nuxt vuex store module within a second",
   "main": "index.js",
   "scripts": {
